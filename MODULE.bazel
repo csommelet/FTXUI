@@ -1,0 +1,16 @@
+
+CC_TOOLCHAIN_COMMIT = "dec0912240a57a7ff3043728def116ef022718bf"
+
+bazel_dep(name = "cc-toolchain", version = "0.0.1")
+archive_override(
+    module_name = "cc-toolchain",
+    urls = ["https://github.com/cerisier/cc-toolchain/archive/{}.tar.gz".format(CC_TOOLCHAIN_COMMIT)],
+    integrity = "sha256-K5uiZUAAuW/+5iOiFDneXa8xffE8ehWdNipa95HfE6c=",
+    strip_prefix = "cc-toolchain-{}".format(CC_TOOLCHAIN_COMMIT),
+)
+
+#TODO: Make this more user friendly :)
+register_toolchains(
+    "@cc-toolchain//toolchain/stage2:stage2_toolchain",
+    "@cc-toolchain//toolchain:xclang_toolchain",
+)
